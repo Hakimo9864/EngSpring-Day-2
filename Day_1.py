@@ -16,6 +16,7 @@ Outputs:
     - thresh_<T>.png for each threshold T
 """
 
+# TODO: You will need to research the openCV functions at https://docs.opencv.org/ to complete the code below. 
 
 import argparse
 from pathlib import Path
@@ -94,18 +95,20 @@ def main() -> None:
         raise ValueError(f"OpenCV could not read image (is it a valid jpg/png?): {img_path}")
 
     print("\n=== Image inspection ===")
-    print(f"File: {img_path.name}")
-    print(f"Shape: {image_bgr.shape}  (height, width, channels)")
-    print(f"Data type: {image_bgr.dtype}  (usually uint8)")
-    h, w, c = image_bgr.shape
-
+    # TODO: Print out the basic properties of the image
+    # Use .name to get just the filename without the full path for cleaner output
+    # Use .shape to get (height, width, channels) and .dtype for data type
+    # make sure that the variables h, w, c are defined for later use in sampling a pixel
+    # where h = height, w = width, c = number of channels (should be 3 for BGR)
+   
     # Sample a pixel (row 100, col 200) if in bounds
     r, col = min(100, h - 1), min(200, w - 1)
     pixel_bgr = image_bgr[r, col]
-    print(f"Pixel at (row={r}, col={col}) in BGR: {pixel_bgr.tolist()}")
-
+    # TODO: Print the BGR values of the sampled pixel
+    
     # Convert to grayscale
-    gray = cv2.cvtColor(image_bgr, cv2.COLOR_BGR2GRAY)
+    # TODO: Use OpenCV's cvtColor function to convert the BGR image to grayscale use the variable name "gray" for the output grayscale image
+    # 
     gray_path = outdir / "grayscale.png"
     cv2.imwrite(str(gray_path), gray)
     print(f"Saved grayscale image to: {gray_path}")
@@ -139,13 +142,7 @@ def main() -> None:
 
         cv2.destroyAllWindows()
 
-    # Reflection prompts printed at end for convenience
-    print("\n=== Reflection prompts (answer in your write-up) ===")
-    print("1) When is a threshold classifier reasonable? When does it fail?")
-    print("2) What assumptions does thresholding make about the image?")
-    print("3) If you wanted to improve this classifier, what extra information (features) could you use?")
-    print("4) Is thresholding machine learning? Why or why not?")
-
+   
 
 if __name__ == "__main__":
     main()
