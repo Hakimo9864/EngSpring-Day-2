@@ -6,7 +6,7 @@ Requirements:
   pip install opencv-python numpy
 
 Usage examples:
-  python day1_threshold_lab.py --image sample.jpg
+  python3 Day_1.py --image sample.jpg
   python day1_threshold_lab.py --image sample.jpg --thresholds 60 120 180
   python day1_threshold_lab.py --image sample.jpg --no-gui
 
@@ -16,7 +16,8 @@ Outputs:
     - thresh_<T>.png for each threshold T
 """
 
-# TODO: You will need to research the openCV functions at https://docs.opencv.org/ to complete the code below. 
+
+# TODO: You will need to research  the openCV functions at https://docs.opencv.org/ to complete the code below. 
 
 import argparse
 from pathlib import Path
@@ -95,6 +96,13 @@ def main() -> None:
         raise ValueError(f"OpenCV could not read image (is it a valid jpg/png?): {img_path}")
 
     print("\n=== Image inspection ===")
+    print(f"imagename:{img_path.name}")
+    print(f"image shape: {image_bgr.shape}")
+   # print(pixel_bgr.tolist())
+    h, w, c = image_bgr.shape
+   
+    #pixel_bgr = image_bgr[r, col]
+
     # TODO: Print out the basic properties of the image
     # Use .name to get just the filename without the full path for cleaner output
     # Use .shape to get (height, width, channels) and .dtype for data type
@@ -103,13 +111,15 @@ def main() -> None:
    
     # Sample a pixel (row 100, col 200) if in bounds
     r, col = min(100, h - 1), min(200, w - 1)
-    pixel_bgr = image_bgr[r, col]
+    #pixel_bgr = image_bgr[r, col]
     # TODO: Print the BGR values of the sampled pixel
     
     # Convert to grayscale
     # TODO: Use OpenCV's cvtColor function to convert the BGR image to grayscale use the variable name "gray" for the output grayscale image
     # 
+    gray = cv2.cvtColor(image_bgr, cv2.COLOR_BGR2GRAY)
     gray_path = outdir / "grayscale.png"
+
     cv2.imwrite(str(gray_path), gray)
     print(f"Saved grayscale image to: {gray_path}")
 
